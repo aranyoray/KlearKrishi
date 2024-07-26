@@ -43,7 +43,7 @@ export const authAtom = atom((get) => get(authDefaultAtom), async (get, set, val
 })
 
 
-export const api = process.env.NODE_ENV == 'development' ? `https://9973-106-219-123-18.ngrok-free.app` : '';
+export const api = process.env.NODE_ENV == 'development' ? `https://0d95-106-219-123-18.ngrok-free.app` : '';
 
 
 NativeWindStyleSheet.setOutput({
