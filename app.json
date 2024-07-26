@@ -33,7 +33,10 @@
     "plugins": [
       "@config-plugins/detox",
       "expo-router",
-      "expo-location"
+      "expo-location",
+      "expo-camera",
+      "expo-image-picker",
+      "expo-file-system"
     ]
   }
 }

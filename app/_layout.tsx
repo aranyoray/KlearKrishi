@@ -1,14 +1,50 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable prettier/prettier */
 /* eslint-disable global-require */
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { atomWithStorage } from 'jotai/utils'
-import {NativeBaseProvider } from "native-base";
+import { atom } from 'jotai';
+import { NativeBaseProvider } from "native-base";
 import { NativeWindStyleSheet } from 'nativewind';
 
-const authAtom = atomWithStorage('authAtom', false);
+import Authwall from './_authwall';
+
+
+type AuthAtom = {
+  'klearkrishi': {
+    id: string;
+    fullName: string;
+    latitude: number | null;
+    longitude: number | null;
+    address: string | null;
+    phoneNumber: string;
+  } | null,
+  'klearkeemat': {
+    id: string;
+    fullName: string;
+    latitude: number | null;
+    longitude: number | null;
+    address: string | null;
+    phoneNumber: string;
+  } | null
+}
+
+const authDefaultAtom = atom<AuthAtom>({
+  klearkrishi: null,
+  klearkeemat: null
+});
+
+export const authAtom = atom((get) => get(authDefaultAtom), async (get, set, value: AuthAtom) => {
+  set(authDefaultAtom, value);
+  await AsyncStorage.setItem("klearkrishi_auth", JSON.stringify(value.klearkrishi));
+})
+
+
+export const api = process.env.NODE_ENV == 'development' ? `https://114e-106-219-123-18.ngrok-free.app` : '';
+
 
 NativeWindStyleSheet.setOutput({
   default: 'native',
@@ -23,5 +59,5 @@ export default function Layout() {
 
   if (!loaded) return <></>;
 
-  return <NativeBaseProvider><Stack /></NativeBaseProvider>;
+  return <NativeBaseProvider><Authwall><Stack /></Authwall></NativeBaseProvider>;
 }
