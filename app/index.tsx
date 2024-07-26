@@ -21,7 +21,7 @@ import _ from 'lodash'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MoveRight, UserCheck } from 'lucide-react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Button, CheckIcon, Input, ScrollView, Select } from 'native-base';
+import { Button, CheckIcon, Input, ScrollView, Select, Spinner } from 'native-base';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -195,6 +195,7 @@ const KlearKishi = ({
               rounded="full"
               px-4
               // isDisabled={address !== null}
+              isDisabled
               onChangeText={(e) => setAddress(e)}
               value={address}
               // placeholder={address}
@@ -382,7 +383,7 @@ const KlearKeemat = ({
               ml={-2}
               rounded="full"
               px-4
-              // isDisabled={address !== null}
+              isDisabled
               onChangeText={(e) => setAddress(e)}
               value={address}
               // placeholder={address}
@@ -434,7 +435,7 @@ const Home = () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== 'granted') {
-        return;
+        return alert("Error: You are required to enable Location Access for this app to run!");
       }
 
       const getLocation = await Location.getCurrentPositionAsync({
@@ -451,7 +452,14 @@ const Home = () => {
     })();
   }, [auth]);
 
-  if (!rootNavigationState?.key || !location) return null;
+  if (!rootNavigationState?.key || !location) return (
+    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <Stack.Screen options={{
+        headerShown: false
+      }} />
+      <Spinner color="black" size={24} />
+    </View>
+  );
 
   if (mode == 'klearkrishi') {
     return <KlearKishi setMode={setMode} />;
