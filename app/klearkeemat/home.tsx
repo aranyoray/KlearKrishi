@@ -188,7 +188,7 @@ const Home = () => {
                 </TouchableOpacity>
                 <Text className='mb-2 text-sm' fontFamily="Inter">+91 {s.phoneNumber.substring(0, 5)} {s.phoneNumber.substring(5, 10)}</Text>
                 <Text className='mt-1 text-sm text-gray-600' fontFamily="Inter">
-                  {haversineDistance(auth.klearkeemat?.latitude, auth.klearkeemat?.longitude, s.latitude, s.longitude).toFixed(2)} KMs away
+                  {haversineDistance(auth.klearkeemat?.latitude as any, auth.klearkeemat?.longitude as any, s.latitude, s.longitude).toFixed(2)} KMs away
                 </Text>
               </View>
               <View className='flex flex-row'>
