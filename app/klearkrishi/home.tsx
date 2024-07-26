@@ -62,7 +62,7 @@ const Home = () => {
                       fontFamily: 'Product Sans',
                     }}
                   >
-                    Welcome, {auth.klearkrishi?.fullName}!
+                    Welcome, {auth.klearkrishi?.fullName.split(" ")[0]}!
                   </Text>
                 </View>
               </View>
@@ -77,8 +77,7 @@ const Home = () => {
             Welcome to <Text color="emerald.500">KlearKrishi!</Text>
           </Heading>
           <Text mt="3" fontWeight="medium">
-            NativeBase is a simple, modular and accessible component library that
-            gives you building blocks to build you React applications.
+            Intelligent Android App for Evaluating Calorific and Market Value of Agricultural Co-Products
           </Text>
         </Container>
       </Center>

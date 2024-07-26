@@ -32,7 +32,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import { authAtom } from './_layout';
+import { api, authAtom } from './_layout';
 
 const locationAtom = atom<Location.LocationObject | null>(null);
 const addressAtom = atom<string>("");
@@ -72,7 +72,7 @@ const KlearKishi = ({
         longitude: number | null;
         address: string | null;
         phoneNumber: string;
-      }> = await axios.post(`https://114e-106-219-123-18.ngrok-free.app` + "/reg", {
+      }> = await axios.post(api + "/reg", {
         phoneNumber,
         fullName,
         address: location ? [location?.coords.latitude, location?.coords.longitude] : address,
@@ -263,7 +263,7 @@ const KlearKeemat = ({
         longitude: number | null;
         address: string | null;
         phoneNumber: string;
-      }> = await axios.post(`https://114e-106-219-123-18.ngrok-free.app` + "/reg/buyer", {
+      }> = await axios.post(api + "/reg/buyer", {
         phoneNumber,
         fullName,
         address: location ? [location?.coords.latitude, location?.coords.longitude] : address,
@@ -274,7 +274,7 @@ const KlearKeemat = ({
         'klearkeemat': data.data
       });
 
-      setMode('redirect')
+      setMode('redirect2')
 
       return Toast.show({
         text1: "Successful Registration!",
@@ -451,7 +451,7 @@ const Home = () => {
     })();
   }, [auth]);
 
-  if (!rootNavigationState?.key) return null;
+  if (!rootNavigationState?.key || !location) return null;
 
   if (mode == 'klearkrishi') {
     return <KlearKishi setMode={setMode} />;
